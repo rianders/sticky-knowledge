@@ -1,0 +1,16 @@
+.
+├── build
+│   ├── index.html
+│   └── static
+│       └── js
+│           ├── main.40745f1c.js
+│           ├── main.40745f1c.js.LICENSE.txt
+│           └── main.40745f1c.js.map
+├── proj_structure.txt
+├── public
+│   └── index.html
+└── src
+    ├── StickyOrganizer.js
+    └── index.js
+
+6 directories, 8 files
