@@ -3,5 +3,8 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/sticky-knowledge/'
+  base: '/sticky-knowledge/',
+  resolve: {
+    extensions: ['.js', '.jsx']
+  }
 })
