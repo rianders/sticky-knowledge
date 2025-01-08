@@ -150,12 +150,30 @@ const StickyOrganizer = () => {
 
   return (
     <div className="p-4">
-      {/* Connection Status */}
-      <div className="mb-4 p-2 bg-blue-100 rounded">
-        <p className="text-sm">Your ID: {peerId}</p>
-        <p className="text-sm">
-          Status: {dataChannel?.readyState === 'open' ? 'Connected' : 'Waiting for connection...'}
-        </p>
+      {/* Connection Status & Sharing */}
+      <div className="mb-4 p-4 bg-blue-100 rounded flex flex-col gap-3">
+        <div className="flex justify-between items-center">
+          <div>
+            <p className="text-sm font-medium">Room ID: {peerId}</p>
+            <p className="text-sm">
+              Status: {dataChannel?.readyState === 'open' ? 'Connected' : 'Waiting for connection...'}
+            </p>
+          </div>
+          <button
+            onClick={() => navigator.clipboard.writeText(window.location.href)}
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 flex items-center gap-2"
+          >
+            Copy Share Link
+          </button>
+        </div>
+        <div className="flex items-center gap-2 bg-white p-2 rounded">
+          <input
+            type="text"
+            value={window.location.href}
+            readOnly
+            className="flex-grow p-2 bg-transparent text-sm"
+          />
+        </div>
       </div>
 
       {/* Rest of the UI remains the same */}
