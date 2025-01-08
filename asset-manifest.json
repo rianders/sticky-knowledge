@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/sticky-knowledge/static/js/main.be77cdc7.js",
+    "main.js": "/sticky-knowledge/static/js/main.40745f1c.js",
     "index.html": "/sticky-knowledge/index.html",
-    "main.be77cdc7.js.map": "/sticky-knowledge/static/js/main.be77cdc7.js.map"
+    "main.40745f1c.js.map": "/sticky-knowledge/static/js/main.40745f1c.js.map"
   },
   "entrypoints": [
-    "static/js/main.be77cdc7.js"
+    "static/js/main.40745f1c.js"
   ]
 }
