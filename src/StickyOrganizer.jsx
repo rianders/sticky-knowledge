@@ -28,7 +28,85 @@ const setupDataChannel = (channel, onMessage) => {
 };
 
 const QuadrantCluster = ({ items, categories }) => {
-  // [Previous QuadrantCluster code remains exactly the same]
+  const width = 800;
+  const height = 800;
+  const padding = 40;
+  const quadrantHeight = height / 2 - padding;
+  const quadrantWidth = width / 2 - padding;
+
+  const getNotesForCategory = (category) => {
+    return items.filter(t => t.categories.includes(category));
+  };
+
+  const layoutNotesInQuadrant = (notes, quadrant) => {
+    const STICKY_WIDTH = 100;
+    const STICKY_HEIGHT = 60;
+    const MARGIN = 10;
+    const ITEMS_PER_ROW = Math.floor(quadrantWidth / (STICKY_WIDTH + MARGIN));
+    
+    return notes.map((note, index) => {
+      const row = Math.floor(index / ITEMS_PER_ROW);
+      const col = index % ITEMS_PER_ROW;
+      
+      let baseX = col * (STICKY_WIDTH + MARGIN);
+      let baseY = row * (STICKY_HEIGHT + MARGIN);
+      
+      switch(quadrant) {
+        case 0:
+          baseX += padding;
+          baseY += padding;
+          break;
+        case 1:
+          baseX += width/2 + padding;
+          baseY += padding;
+          break;
+        case 2:
+          baseX += padding;
+          baseY += height/2 + padding;
+          break;
+        case 3:
+          baseX += width/2 + padding;
+          baseY += height/2 + padding;
+          break;
+      }
+      
+      return { ...note, x: baseX, y: baseY };
+    });
+  };
+
+  return (
+    <div className="w-full overflow-x-auto p-4">
+      <svg width={width} height={height} className="bg-white">
+        <line x1={width/2} y1={0} x2={width/2} y2={height} stroke="#666" strokeWidth="2"/>
+        <line x1={0} y1={height/2} x2={width} y2={height/2} stroke="#666" strokeWidth="2"/>
+
+        {categories.map((category, index) => {
+          const x = index % 2 === 0 ? padding : width/2 + padding;
+          const y = index < 2 ? padding : height/2 + padding;
+          
+          return (
+            <text key={category} x={x} y={y - 10} className="font-bold" textAnchor="start">
+              {category}
+            </text>
+          );
+        })}
+
+        {categories.map((category, quadrant) => {
+          const notes = getNotesForCategory(category);
+          const layoutedNotes = layoutNotesInQuadrant(notes, quadrant);
+          
+          return layoutedNotes.map((note, i) => (
+            <g key={`${note.id}-${i}`} transform={`translate(${note.x},${note.y})`}>
+              <rect width="100" height="60" rx="4" fill="#FFEB3B" stroke="#FBC02D"/>
+              <text x="50" y="35" textAnchor="middle" style={{ fontSize: '12px' }}>
+                {note.text.length > 20 ? note.text.substring(0, 17) + '...' : note.text}
+              </text>
+            </g>
+          ));
+        })}
+      </svg>
+    </div>
+  );
 };
 
 const StickyOrganizer = () => {

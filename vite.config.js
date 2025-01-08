@@ -4,7 +4,14 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/sticky-knowledge/',
-  resolve: {
-    extensions: ['.js', '.jsx']
-  }
+  esbuild: {
+    loader: 'jsx',
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      loader: {
+        '.js': 'jsx',
+      },
+    },
+  },
 })
